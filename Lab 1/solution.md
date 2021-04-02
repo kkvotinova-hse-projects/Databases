@@ -1,5 +1,5 @@
 ### Уровень 1
-1.
+#### 1
 ```SQL
 -- Создаём базу данных
 CREATE DATABASE "BOOKSTORE"
@@ -56,7 +56,7 @@ CREATE TABLE purchase (
 );
 ```
 
-2.
+#### 2
 ```SQL
 -- Заполняем таблицу Покупатель
 INSERT INTO customer VALUES
@@ -106,12 +106,12 @@ INSERT INTO purchase VALUES
 	(10027, '2020-06-01', 3, 2, 6, 2, 32000);
 ```
 
-3.
-	1. SELECT * FROM purchase; (bold)
-	![](screenshots/3_1.png)
-	2. SELECT * FROM book; (bold)
-	![](screenshots/3_2.png)
-	3. SELECT * FROM customer; (bold)
-	![](screenshots/3_3.png)
-	4. SELECT * FROM store; (bold)
-	![](screenshots/3_4.png)
+#### 3
+a) `SELECT * FROM purchase;`
+![](screenshots/3_1.png)
+b) `SELECT * FROM book;`
+![](screenshots/3_2.png)
+c) `SELECT * FROM customer;`
+![](screenshots/3_3.png)
+d)`SELECT * FROM store;`
+![](screenshots/3_4.png)
