@@ -105,3 +105,13 @@ INSERT INTO purchase VALUES
 	(10026, '2020-05-01', 5, 1, 5, 3, 80000),
 	(10027, '2020-06-01', 3, 2, 6, 2, 32000);
 ```
+
+3.
+	1. SELECT * FROM purchase; (bold)
+	![](screenshots/3_1.png)
+	2. SELECT * FROM book; (bold)
+	![](screenshots/3_2.png)
+	3. SELECT * FROM customer; (bold)
+	![](screenshots/3_3.png)
+	4. SELECT * FROM store; (bold)
+	![](screenshots/3_4.png)
