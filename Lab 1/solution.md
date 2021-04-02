@@ -8,10 +8,6 @@ CREATE DATABASE "BOOKSTORE"
     ENCODING = 'UTF8'
     CONNECTION LIMIT = -1;
 
--- Таблицы:
--- NOT NULL было использовано тогда, когда без этого признака была бы бесполезна вся строка в таблице и значение NULL нельзя заменить на другое однозначно
---Для второго условия использовался DEFAULT
-
 -- Таблица покупателей
 CREATE TABLE customer (
 	id serial NOT NULL,
@@ -118,7 +114,32 @@ INSERT INTO purchase VALUES
 
 #### 4
 
+
 #### 5
+##### a)
+```SQL
+SELECT name, discount
+FROM customer WHERE
+	area LIKE 'Нижегородский';
+```
+![](screenshots/5_1.png)
+##### b)
+```SQL
+SELECT DISTINCT name
+FROM store WHERE
+	area LIKE 'Сормовский'
+	OR area LIKE 'Советский';
+```
+![](screenshots/5_2.png)
+##### c)
+```SQL
+SELECT name, price
+FROM book WHERE
+	name LIKE '%Windows%'
+ 	OR price > 20000
+ORDER BY price DESC;
+```
+![](screenshots/5_3.png)
 
 #### 6
 
