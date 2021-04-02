@@ -107,11 +107,15 @@ INSERT INTO purchase VALUES
 ```
 
 #### 3
+
 a) `SELECT * FROM purchase;`
 ![](screenshots/3_1.png)
+
 b) `SELECT * FROM book;`
 ![](screenshots/3_2.png)
+
 c) `SELECT * FROM customer;`
 ![](screenshots/3_3.png)
+
 d)`SELECT * FROM store;`
 ![](screenshots/3_4.png)
