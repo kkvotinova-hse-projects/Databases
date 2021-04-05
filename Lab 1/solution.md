@@ -40,13 +40,13 @@ CREATE TABLE book (
 CREATE TABLE purchase (
 	id serial NOT NULL,
 	pdate date DEFAULT NOW(),
-	seller_id int NOT NULL,
+	store_id int NOT NULL,
 	customer_id int NOT NULL,
 	book_id int NOT NULL,
 	quantity int DEFAULT 0,
 	PRIMARY KEY (id),
 	psum float NOT NULL,
-	FOREIGN KEY(seller_id) REFERENCES customer(id) ON UPDATE CASCADE,
+	FOREIGN KEY(store_id) REFERENCES store(id) ON UPDATE CASCADE,
 	FOREIGN KEY(customer_id) REFERENCES customer(id) ON UPDATE CASCADE,
 	FOREIGN KEY(book_id) REFERENCES book(id) ON UPDATE CASCADE
 );
@@ -144,19 +144,100 @@ ORDER BY price DESC;
 #### 6
 
 #### 7
+##### a)
+```SQL
+SELECT p.id, name, pdate
+FROM purchase p, customer c
+WHERE
+	p.customer_id = c.id
+	and p.psum >= 60000;
+```
+![](screenshots/7_1.png)
+##### b)
+```SQL
+SELECT c.name, c.area, p.pdate
+FROM purchase p, customer c, store s
+WHERE
+	p.customer_id = c.id
+	AND pdate >= '2020-03-01'
+	AND s.id = p.store_id
+	AND s.area = c.area
+ORDER BY c.name ASC
+```
+![](screenshots/7_2.png)
+##### c)
+```SQL
+SELECT s.name, s.area, c.discount
+FROM purchase p, customer c, store s
+WHERE
+	c.discount BETWEEN 10 AND 15
+	AND p.customer_id = c.id
+	AND s.id = p.store_id
+	AND s.area != 'Автозаводский'
+GROUP BY s.name, s.area, c.discount;
+```
+![](screenshots/7_3.png)
+##### d)
+```SQL
+SELECT b.name, b.bstorage, b.quantity, b.price
+FROM book b, purchase p, store s
+WHERE
+	b.id = p.book_id
+	AND s.id = p.store_id
+	AND b.quantity > 10
+	AND s.area = b.bstorage
+ORDER BY b.name ASC;
+```
+![](screenshots/7_4.png)
 
 #### 8
 
 #### 9
+```SQL
+ALTER TABLE purchase
+ADD COLUMN commission float DEFAULT 0.0;
+
+UPDATE purchase
+SET commission = s.commission FROM store s
+WHERE store_id = s.id;
+```
+![](screenshots/9.png)
 
 #### 10
 
 #### 11
+##### a)
+```SQL
+SELECT name
+FROM customer
+WHERE
+	id IN (
+		SELECT customer_id
+		FROM purchase
+		WHERE
+			psum >= ALL (SELECT psum FROM purchase)
+	);
+```
+![](screenshots/11_1.png)
+##### b)
+```SQL
+```
+![](screenshots/11_2.png)
+##### c)
+```SQL
+```
+![](screenshots/11_3.png)
+##### d)
+```SQL
+```
+![](screenshots/11_4.png)
 
 #### 12
 
 #### 13
+TODO
 
 #### 14
 
 #### 15
+TODO
