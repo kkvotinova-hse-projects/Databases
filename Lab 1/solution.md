@@ -237,7 +237,7 @@ ORDER BY b.name ASC;
 SELECT purchase.psum, (1 - customer.discount / 100) * book.price * purchase.quantity FROM  purchase JOIN book ON purchase.book_id = book.id JOIN customer ON purchase.customer_id = customer.id;
 ```
 ![](screenshots/8_1.png)
-##### 1.
+##### 2.
 ```SQL
 UPDATE purchase SET psum = (1 - (SELECT discount FROM customer WHERE purchase.customer_id = customer.id) / 100) * purchase.quantity * (SELECT price FROM book WHERE purchase.book_id = book.id); UPDATE purchase SET psum = ROUND(psum::numeric, 2); SELECT * FROM purchase;
 ```
