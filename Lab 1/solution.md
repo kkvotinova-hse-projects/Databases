@@ -329,10 +329,34 @@ WHERE NOT EXISTS (
 ![](screenshots/13_2.png)
 ##### c)
 ```SQL
+SELECT DISTINCT c1.name
+FROM purchase p1, customer c1
+WHERE EXISTS (
+	SELECT *
+	FROM purchase
+	WHERE p1.customer_id NOT IN (
+		SELECT p3.customer_id
+		FROM purchase p3
+		WHERE
+			p3.commission = ALL(SELECT MAX(commission) FROM store)
+	)
+) AND p1.customer_id = c1.id;
 ```
 ![](screenshots/13_3.png)
 ##### d)
 ```SQL
+SELECT name
+FROM customer c
+WHERE NOT EXISTS (
+	SELECT customer_id FROM purchase
+    WHERE c.id = purchase.customer_id
+		AND purchase.psum > 25000
+		AND purchase.pdate >= '2020-05-01'
+      	AND purchase.store_id IN (
+			SELECT store.id FROM store
+        	WHERE commission = ( SELECT MAX(commission) FROM store )
+		)
+);
 ```
 ![](screenshots/13_4.png)
 
@@ -343,4 +367,19 @@ WHERE NOT EXISTS (
 ---
 
 #### 15
-TODO
+##### a)
+```SQL
+```
+![](screenshots/15_1.png)
+##### b)
+```SQL
+```
+![](screenshots/15_2.png)
+##### c)
+```SQL
+```
+![](screenshots/15_3.png)
+##### d)
+```SQL
+```
+![](screenshots/15_4.png)
