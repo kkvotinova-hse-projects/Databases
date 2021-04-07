@@ -125,6 +125,12 @@ INSERT INTO purchase VALUES
 ---
 
 #### 4
+##### a) `SELECT DISTINCT name, price FROM book;`
+![](screenshots/4_1.png)
+##### b) `SELECT DISTINCT area FROM customer;`
+![](screenshots/4_2.png)
+##### c) `SELECT DISTINCT to_char(pdate, 'Mon') FROM purchase;`
+![](screenshots/4_3.png)
 
 ---
 
@@ -157,6 +163,22 @@ ORDER BY price DESC;
 ---
 
 #### 6
+##### a)
+```SQL
+SELECT customer.name, store.name FROM purchase 
+JOIN customer ON purchase.customer_id = customer.id
+JOIN store ON purchase.store_id = store.id;
+```
+![](screenshots/6_1.png)
+##### b)
+```SQL
+SELECT purchase.pdate, customer.name, customer.discount, book.name, purchase.quantity
+FROM purchase
+JOIN customer ON purchase.customer_id = customer.id
+JOIN book ON purchase.book_id = book.id;
+
+```
+![](screenshots/6_2.png)
 
 ---
 
@@ -210,6 +232,16 @@ ORDER BY b.name ASC;
 ---
 
 #### 8
+##### 1.
+```SQL
+SELECT purchase.psum, (1 - customer.discount / 100) * book.price * purchase.quantity FROM  purchase JOIN book ON purchase.book_id = book.id JOIN customer ON purchase.customer_id = customer.id;
+```
+![](screenshots/8_1.png)
+##### 1.
+```SQL
+UPDATE purchase SET psum = (1 - (SELECT discount FROM customer WHERE purchase.customer_id = customer.id) / 100) * purchase.quantity * (SELECT price FROM book WHERE purchase.book_id = book.id); UPDATE purchase SET psum = ROUND(psum::numeric, 2); SELECT * FROM purchase;
+```
+![](screenshots/8_2.png)
 
 ---
 
@@ -227,6 +259,26 @@ WHERE store_id = s.id;
 ---
 
 #### 10
+##### a)
+```SQL
+SELECT * FROM customer WHERE id NOT IN (SELECT DISTINCT customer_id FROM purchase  JOIN store ON purchase.store_id = store.id WHERE store.area = 'Нижегородский');
+```
+![](screenshots/10_1.png)
+##### b)
+```SQL
+SELECT customer_id, SUM(psum) FROM purchase WHERE pdate = '2020-05-01' AND customer_id NOT IN (2) AND psum < (SELECT SUM(psum) FROM purchase WHERE customer_id = 2 AND pdate = '2020-05-01') GROUP BY customer_id;
+```
+##### c)
+###### a)
+```SQL
+SELECT purchase.id, customer.name, purchase.pdate FROM purchase JOIN customer ON purchase.customer_id = customer.id WHERE purchase.psum IN (SELECT psum FROM purchase WHERE psum >= 60000);
+```
+![](screenshots/10_31.png)
+###### b)
+```SQL
+SELECT DISTINCT store.id, store.name, store.area FROM purchase JOIN customer ON purchase.customer_id = customer.id JOIN store ON purchase.store_id = store.id WHERE store.area NOT IN ('Автозаводский') AND customer.discount IN  (SELECT discount FROM customer WHERE discount BETWEEN 10 AND 15);
+```
+![](screenshots/10_32.png)
 
 ---
 
@@ -289,6 +341,10 @@ WHERE
 ---
 
 #### 12
+```SQL
+SELECT area FROM customer UNION SELECT bstorage FROM book;
+```
+![](screenshots/12.png)
 
 ---
 
@@ -363,6 +419,26 @@ WHERE NOT EXISTS (
 ---
 
 #### 14
+##### a)
+```SQL
+SELECT AVG(psum) FROM purchase JOIN store ON purchase.store_id = store.id WHERE store.area = 'Нижегородский';
+```
+![](screenshots/14_1.png)
+##### b)
+```SQL
+SELECT COUNT(DISTINCT purchase.customer_id) FROM purchase JOIN store ON purchase.store_id = store.id WHERE store.name = 'Наука';
+```
+![](screenshots/14_2.png)
+##### c)
+```SQL
+SELECT * FROM customer WHERE discount < (SELECT AVG(discount) FROM customer);
+```
+![](screenshots/14_3.png)
+##### d)
+```SQL
+SELECT store.id, store.name, tabq.num FROM (SELECT store_id, COUNT(DISTINCT customer_id) as num FROM purchase GROUP BY store_id) as tabq JOIN store ON tabq.store_id = store.id WHERE tabq.num > (SELECT COUNT(DISTINCT customer_id) FROM purchase WHERE store_id = 2);
+```
+![](screenshots/14_4.png)
 
 ---
 
