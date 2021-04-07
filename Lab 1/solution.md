@@ -385,9 +385,20 @@ GROUP BY s.area, s;
 ![](screenshots/15_2.png)
 ##### c)
 ```SQL
+SELECT c.name, SUM(p.psum)
+FROM customer c, purchase p
+WHERE c.id = p.store_id
+GROUP BY c.name;
 ```
 ![](screenshots/15_3.png)
 ##### d)
 ```SQL
+SELECT p.pdate, SUM(p.quantity)
+FROM customer c, purchase p
+WHERE
+	c.id = p.customer_id
+	AND	c.area != 'Советский'
+GROUP BY p.pdate
+ORDER BY p.pdate;
 ```
 ![](screenshots/15_4.png)
