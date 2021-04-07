@@ -1,6 +1,8 @@
-Работу выполнили:
+#### Работу выполнили:
 > 👩🏻‍💻  [@Ksuvot](https://github.com/Ksuvot) - *Ксения Вотинова*  
 > 👨🏻‍💻 [@VarginDimitry](https://github.com/VarginDimitry) - *Дмитрий Варгин*
+
+---
 
 ### Уровень 1
 #### 1
@@ -56,6 +58,8 @@ CREATE TABLE purchase (
 );
 ```
 
+---
+
 #### 2
 ```SQL
 -- Заполняем таблицу Покупатель
@@ -106,6 +110,8 @@ INSERT INTO purchase VALUES
 	(10027, '2020-06-01', 3, 2, 6, 2, 32000);
 ```
 
+---
+
 #### 3
 ##### a) `SELECT * FROM purchase;`
 ![](screenshots/3_1.png)
@@ -116,8 +122,11 @@ INSERT INTO purchase VALUES
 ##### d)`SELECT * FROM store;`
 ![](screenshots/3_4.png)
 
+---
+
 #### 4
 
+---
 
 #### 5
 ##### a)
@@ -145,7 +154,11 @@ ORDER BY price DESC;
 ```
 ![](screenshots/5_3.png)
 
+---
+
 #### 6
+
+---
 
 #### 7
 ##### a)
@@ -194,7 +207,11 @@ ORDER BY b.name ASC;
 ```
 ![](screenshots/7_4.png)
 
+---
+
 #### 8
+
+---
 
 #### 9
 ```SQL
@@ -207,7 +224,11 @@ WHERE store_id = s.id;
 ```
 ![](screenshots/9.png)
 
+---
+
 #### 10
+
+---
 
 #### 11
 ##### a)
@@ -265,7 +286,11 @@ WHERE
 ```
 ![](screenshots/11_4.png)
 
+---
+
 #### 12
+
+---
 
 #### 13
 ##### a)
@@ -311,7 +336,11 @@ WHERE NOT EXISTS (
 ```
 ![](screenshots/13_4.png)
 
+---
+
 #### 14
+
+---
 
 #### 15
 TODO
