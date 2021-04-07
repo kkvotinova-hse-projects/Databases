@@ -369,10 +369,18 @@ WHERE NOT EXISTS (
 #### 15
 ##### a)
 ```SQL
+SELECT s.name, SUM(p.psum)
+FROM store s, purchase p
+WHERE s.id = p.store_id
+GROUP BY s.name, s;
 ```
 ![](screenshots/15_1.png)
 ##### b)
 ```SQL
+SELECT s.area, SUM(p.psum)
+FROM store s, purchase p
+WHERE s.id = p.store_id
+GROUP BY s.area, s;
 ```
 ![](screenshots/15_2.png)
 ##### c)
