@@ -1,3 +1,7 @@
+Работу выполнили:
+> 👩🏻‍💻  [@Ksuvot](https://github.com/Ksuvot) - *Ксения Вотинова*  
+> 👨🏻‍💻 [@VarginDimitry](https://github.com/VarginDimitry) - *Дмитрий Варгин*
+
 ### Уровень 1
 #### 1
 ```SQL
@@ -215,27 +219,97 @@ WHERE
 		SELECT customer_id
 		FROM purchase
 		WHERE
-			psum >= ALL (SELECT psum FROM purchase)
+			psum >= ALL (
+				SELECT psum FROM purchase
+				WHERE psum >= 50000
+			)
 	);
 ```
 ![](screenshots/11_1.png)
 ##### b)
 ```SQL
+SELECT name
+FROM customer
+WHERE
+	id IN (
+		SELECT customer_id
+		FROM purchase
+		WHERE
+			quantity >= ALL (
+				SELECT quantity FROM purchase
+			)
+	);
 ```
 ![](screenshots/11_2.png)
 ##### c)
 ```SQL
+SELECT c.name, c.area, p.pdate
+FROM purchase p, customer c, store s
+WHERE
+	p.customer_id = c.id
+	AND s.id = p.store_id
+	AND p.customer_id = ANY(SELECT id FROM customer WHERE area = s.area)
+	AND p.pdate = ANY(SELECT pdate FROM purchase WHERE pdate >= '2020-03-01')
+ORDER BY c.name ASC;
 ```
 ![](screenshots/11_3.png)
 ##### d)
 ```SQL
+SELECT c.name
+FROM purchase p, customer c, store s
+WHERE
+	p.customer_id = c.id
+	AND s.id = p.store_id
+	AND p.customer_id != ALL(SELECT id FROM customer WHERE area = s.area)
+	AND p.psum <= ALL(SELECT psum FROM purchase);
 ```
 ![](screenshots/11_4.png)
 
 #### 12
 
 #### 13
-TODO
+##### a)
+```SQL
+SELECT DISTINCT c.name
+FROM purchase p, customer c
+WHERE EXISTS (
+	SELECT * FROM purchase
+	WHERE p.customer_id NOT IN (
+		SELECT p2.customer_id
+		FROM purchase p2
+		WHERE p2.store_id != 1 AND store_id != 2
+	)
+	AND c.id = p.customer_id
+);
+```
+![](screenshots/13_1.png)
+##### b)
+```SQL
+SELECT DISTINCT c1.name
+FROM purchase p1, customer c1
+WHERE NOT EXISTS (
+	SELECT p2.customer_id
+	FROM purchase p2
+	WHERE p1.customer_id NOT IN (
+		SELECT p3.customer_id
+		FROM purchase p3, customer c2, store s
+		WHERE
+			p3.customer_id = c2.id
+			AND p3.store_id = s.id
+			AND c2.area = s.area
+			AND p3.pdate < '2020-12-01'
+	)
+) AND p1.customer_id = c1.id;
+```
+![](screenshots/13_2.png)
+##### c)
+```SQL
+```
+![](screenshots/13_3.png)
+##### d)
+```SQL
+```
+![](screenshots/13_4.png)
 
 #### 14
 
